@@ -1,10 +1,31 @@
+using EventMaker.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-var app = builder.Build();
 
+builder.Services.AddDbContext<ApplicationDbContext>(options => options
+.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")
+,optionsbuilder => optionsbuilder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+var app = builder.Build();
+using (var servicescope = app.Services.CreateScope())
+{
+    var serviceprovider = servicescope.ServiceProvider;
+
+    try
+    {
+        var context = serviceprovider.GetRequiredService<ApplicationDbContext>();
+        DbInitializer.Initialize(context);
+    }
+    catch (Exception e)
+    {
+
+    }
+
+}
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -18,6 +39,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
