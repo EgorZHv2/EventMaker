@@ -1,4 +1,6 @@
-﻿namespace EventMaker.Data
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace EventMaker.Data
 {
     public class DbInitializer
     {

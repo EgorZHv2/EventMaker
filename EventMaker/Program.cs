@@ -15,6 +15,7 @@ using (var servicescope = app.Services.CreateScope())
 {
     var serviceprovider = servicescope.ServiceProvider;
 
+
     try
     {
         var context = serviceprovider.GetRequiredService<ApplicationDbContext>();
@@ -22,7 +23,10 @@ using (var servicescope = app.Services.CreateScope())
     }
     catch (Exception e)
     {
-
+        var loggerfactory = LoggerFactory.Create(builder =>
+        builder.AddConsole());
+        ILogger<Program> logger = loggerfactory.CreateLogger<Program>();
+        logger.LogError(e.Message);
     }
 
 }
