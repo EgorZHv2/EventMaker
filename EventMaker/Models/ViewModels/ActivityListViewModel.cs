@@ -2,6 +2,6 @@
 {
     public class ActivityListViewModel
     {
-        public List<ActivityViewModel> ActivityList { get; set; } = new List<ActivityViewModel>();
+        public List<ActivityViewModel> ActivitiesList { get; set; } = new List<ActivityViewModel>();
     }
 }

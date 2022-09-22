@@ -1,5 +1,5 @@
 using EventMaker.Data;
-using EventMaker.Infrastructure.Mappers;
+using EventMaker.Models;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
