@@ -23,7 +23,7 @@ namespace EventMaker.Services
         }
         public  async Task<Result<int>> CreateActivityAsync(CreateActivityViewModel viewModel)
         {
-            Activity activity = new Activity();
+            Activity? activity = null;
             try
             {
                 activity = _mapper.Map<Activity>(viewModel);

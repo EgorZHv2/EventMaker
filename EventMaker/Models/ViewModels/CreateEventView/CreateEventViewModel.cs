@@ -11,8 +11,8 @@ namespace EventMaker.Models.ViewModels.CreateEventView
 
         public int? DirectionId { get; set; }
         public string? DirectionName { get; set; }
-        public int? CountryId { get; set; }
-        public string? Country { get; set; }
+        public int? CityId { get; set; }
+        public string? CityName { get; set; }
 
 
 

@@ -5,6 +5,7 @@ using EventMaker.Data.Entities;
 using EventMaker.Infrastructure;
 using EventMaker.Models.ViewModels;
 using EventMaker.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace EventMaker.Services
 {
@@ -52,6 +53,31 @@ namespace EventMaker.Services
             return Result<int>.Success(direction.Id);
       
         }
-        
+
+        public async Task<Result<DirectionViewModel>> GetDirectionByNameAsync(string directionname)
+        {
+            var direction =  await _context.Directions.FirstOrDefaultAsync(d => d.Name == directionname);
+
+            if (direction is null)
+            {
+                _logger.LogError($"Направление {directionname} не найдено");
+                return Result<DirectionViewModel>.Failure("Направление не найдено", 404);
+            }
+
+            DirectionViewModel? directionModel = null;
+
+            try
+            {
+                directionModel = _mapper.Map<DirectionViewModel>(direction);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Маппинг завершился с ошибкой: {ex}");
+                return Result<DirectionViewModel>.Failure("Произошла внутренняя ошибка сервера", 500);
+            }
+
+            return Result<DirectionViewModel>.Success(directionModel);
+        }
+
     }
 }

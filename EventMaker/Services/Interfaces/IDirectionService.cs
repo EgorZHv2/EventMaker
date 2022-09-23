@@ -7,5 +7,6 @@ namespace EventMaker.Services.Interfaces
     {
         Task<Result<DirectionListViewModel>> GetAllDirectionsAsync();
         Task<Result<int>> CreateDirectionAsync(CreateDirectionViewModel viewModel);
+        Task<Result<DirectionViewModel>> GetDirectionByNameAsync(string directionname);
     }
 }
