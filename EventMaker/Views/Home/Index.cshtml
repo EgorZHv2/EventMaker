@@ -2,7 +2,64 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<div>
+      <h1 class="text-center">Добро пожаловать на сайт по планированию мероприятий</h1>
+
+    </div>
+    <div class="m-2">
+      <div class="mx-auto card">
+        <div class="card-header text-center">Для использования полного функционала необходима авторизация</div>
+        <div class="card-body mx-auto">
+          <div class="w-fitcontent">
+            <div class="d-inline mx-3 my-1">
+              <button type="button" class="btn btn-primary px-sm-5">Авторизация</button>
+            </div>
+            <div class="d-inline mx-3 my-1">
+              <button type="button" class="btn btn-primary px-sm-5">Регистрация</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h2 class="text-center">Наши мероприятия:</h2>
+    </div>
+    <div class="m-2">
+      <table class="table table-hover table-bordered" id="sortTable">
+        <thead>
+          <tr>
+            <th scope="col">Логотип</th>
+            <th scope="col">Название</th>
+            <th scope="col">Направление</th>
+            <th scope="col">Дата</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Лого1</td>
+            <td>Мероприятие1</td>
+            <td>Направление1</td>
+            <td>Дата1</td>
+          </tr>
+          <tr>
+            <td>Лого2</td>
+            <td>Мероприятие2</td>
+            <td>Направление1</td>
+            <td>Дата2</td>
+          </tr>
+          <tr>
+            <td>Лого3</td>
+            <td>Мероприятие3</td>
+            <td>Направление2</td>
+            <td>Дата3</td>
+          </tr>
+          <tr>
+            <td>Лого4</td>
+            <td>Мероприятие4</td>
+            <td>Направление3</td>
+            <td>Дата4</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

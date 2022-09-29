@@ -16,3 +16,6 @@ html {
 body {
   margin-bottom: 60px;
 }
+.w-fitcontent {
+    width: fit-content;
+}
