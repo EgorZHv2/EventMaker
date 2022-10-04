@@ -113,24 +113,24 @@ namespace EventMaker.Services
             return Result<EventViewModel>.Success(eventResult);
         }
 
-        public async Task<Result<EventListViewModel>> GetAllEventsAsync()
+        public async Task<Result<DetailedEventListViewModel>> GetAllEventsAsync()
         {
             var events = await _context.Events.ToListAsync();
 
-            EventListViewModel eventList = new EventListViewModel();
+            DetailedEventListViewModel eventList = new DetailedEventListViewModel();
 
             try
             {
-                eventList.Events.AddRange(_context.Events.ProjectTo<EventViewModel>(_mapper.ConfigurationProvider));
+                eventList.Events.AddRange(_context.Events.ProjectTo<DetailedEventViewModel>(_mapper.ConfigurationProvider));
                 
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Маппинг завершился с ошибкой: {ex}");
-                return Result<EventListViewModel>.Failure("Произошла внутренняя ошибка сервера", 500);
+                return Result<DetailedEventListViewModel>.Failure("Произошла внутренняя ошибка сервера", 500);
             }
 
-            return Result<EventListViewModel>.Success(eventList);
+            return Result<DetailedEventListViewModel>.Success(eventList);
         }
     }
 }

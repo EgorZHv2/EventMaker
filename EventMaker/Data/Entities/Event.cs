@@ -8,7 +8,7 @@ namespace EventMaker.Data.Entities
         public string Name { get;set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        
+        public string LogoPath { get; set;}
         public Direction Direction { get; set; }
         public int DirectionId { get; set; }
        

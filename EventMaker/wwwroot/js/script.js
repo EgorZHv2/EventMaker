@@ -1,5 +1,8 @@
 ﻿$(document).ready(function () {
     $('#sortTable').DataTable({
+        columnDefs: [
+            { orderable: false, targets: 0 }
+        ],
         "language": {
             "lengthMenu": 'Показывать <select>' +
                 '<option value="5">5</option>' +
@@ -18,6 +21,7 @@
             "zeroRecords": "Не найдено совпадений",
             "infoEmpty": "",
             "infoFiltered": "",
+           
         }
     });
 

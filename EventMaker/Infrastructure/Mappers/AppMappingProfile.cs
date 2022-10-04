@@ -13,6 +13,7 @@ namespace EventMaker.Infrastructure.Mappers
             CreateMap<CreateEventViewModel, Event>().ReverseMap();
                
             CreateMap<Event, EventViewModel>().ReverseMap();
+            CreateMap<Event, DetailedEventViewModel>().ReverseMap();
 
             CreateMap<CreateDirectionViewModel, Direction>().ReverseMap();
             CreateMap<DirectionViewModel, Direction>().ReverseMap();

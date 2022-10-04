@@ -4,6 +4,7 @@ using EventMaker.Data.Entities;
 using EventMaker.Models;
 using EventMaker.Models.ViewModels;
 using EventMaker.Models.ViewModels.OrganizerProfileView;
+using EventMaker.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,13 +17,19 @@ namespace EventMaker.Controllers
         private readonly ApplicationDbContext _context;
         private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
+        private readonly IEventService _eventService;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context, UserManager<User> userManager, IMapper mapper )
+        public HomeController(ILogger<HomeController> logger
+            ,ApplicationDbContext context
+            ,UserManager<User> userManager
+            ,IMapper mapper
+            ,IEventService eventService )
         {
             _logger = logger;
             _context = context;
             _userManager = userManager;
             _mapper = mapper;
+            _eventService = eventService;
         }
         [HttpGet]
         public IActionResult OrganizerProfile()
@@ -42,9 +49,15 @@ namespace EventMaker.Controllers
             userWindowViewModel.UserProfilePath = "/logo1";
             return View(userWindowViewModel);
         }
+        public IActionResult DetailedEvent(int id)
+        {
+
+        }
         public IActionResult Index()
         {
-            return View();
+            DetailedEventListViewModel model = _eventService.GetAllEventsAsync().Result.Value;
+            
+            return View(model);
         }
 
         public IActionResult Privacy()

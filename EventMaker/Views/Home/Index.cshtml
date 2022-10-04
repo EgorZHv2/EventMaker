@@ -1,4 +1,6 @@
-﻿@{
+﻿@model DetailedEventListViewModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -28,38 +30,26 @@
       <table class="table table-hover table-bordered" id="sortTable">
         <thead>
           <tr>
+            <th></th>
             <th scope="col">Логотип</th>
             <th scope="col">Название</th>
             <th scope="col">Направление</th>
             <th scope="col">Дата</th>
+            <th scope="col">Подробнее</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Лого1</td>
-            <td>Мероприятие1</td>
-            <td>Направление1</td>
-            <td>Дата1</td>
-          </tr>
-          <tr>
-            <td>Лого2</td>
-            <td>Мероприятие2</td>
-            <td>Направление1</td>
-            <td>Дата2</td>
-          </tr>
-          <tr>
-            <td>Лого3</td>
-            <td>Мероприятие3</td>
-            <td>Направление2</td>
-            <td>Дата3</td>
-          </tr>
-          <tr>
-            <td>Лого4</td>
-            <td>Мероприятие4</td>
-            <td>Направление3</td>
-            <td>Дата4</td>
-          </tr>
-        </tbody>
+         @foreach(DetailedEventViewModel Event in Model.Events){
+             <tr>
+                 <th class="opacity-0">@Event.Id</th>
+                 <th>@Event.LogoPath</th>
+                 <th>@Event.Name</th>
+                 <th>@Event.Direction.Name</th>
+                 <th>@Event.StartDate</th>
+                 <th><button class="btn btn-primary" onclick="window.location.href='/home/detailedevent/@Event.Id'" >Подробнее</button></th>
+             </tr>
+         }
+         </tbody>
       </table>
     </div>
   </div>

@@ -8,6 +8,6 @@ namespace EventMaker.Services.Interfaces
     {
         Task<Result<int>> CreateEventAsync(CreateEventViewModel viewModel);
         Task<Result<EventViewModel>> GetEventByIdAsync(int id);
-        Task<Result<EventListViewModel>> GetAllEventsAsync();
+        Task<Result<DetailedEventListViewModel>> GetAllEventsAsync();
     }
 }
