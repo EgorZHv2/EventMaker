@@ -5,7 +5,7 @@ namespace EventMaker.Areas.Account.Models
     public class LoginViewModel
     {
         [Required]
-        public int NumberId { get; set; }
+        public int IdNumber { get; set; }
         [Required]
         public string Password { get; set; }
         public string? ReturnUrl { get; set; }

@@ -1,6 +1,6 @@
 using EventMaker.Data;
 using EventMaker.Data.Entities;
-using EventMaker.Models;
+using EventMaker.Infrastructure.Mappers;
 using EventMaker.Services;
 using EventMaker.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;

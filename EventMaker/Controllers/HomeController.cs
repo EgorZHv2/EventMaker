@@ -1,7 +1,9 @@
-﻿using EventMaker.Data;
+﻿using AutoMapper;
+using EventMaker.Data;
 using EventMaker.Data.Entities;
 using EventMaker.Models;
 using EventMaker.Models.ViewModels;
+using EventMaker.Models.ViewModels.OrganizerProfileView;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,13 +15,24 @@ namespace EventMaker.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext _context;
         private readonly UserManager<User> _userManager;
+        private readonly IMapper _mapper;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context, UserManager<User> userManager )
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context, UserManager<User> userManager, IMapper mapper )
         {
             _logger = logger;
             _context = context;
             _userManager = userManager;
+            _mapper = mapper;
         }
+        [HttpGet]
+        public IActionResult OrganizerProfile()
+        {
+            OrganizerProfileViewModel organizerProfileViewModel = new OrganizerProfileViewModel();
+            organizerProfileViewModel = _mapper.Map<OrganizerProfileViewModel>(_userManager.GetUserAsync(User).Result);
+            return View(organizerProfileViewModel);
+        }
+
+        [HttpGet]
         public  IActionResult UserWindow()
         {
             UserWindowViewModel userWindowViewModel = new UserWindowViewModel();

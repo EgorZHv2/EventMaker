@@ -1,0 +1,68 @@
+﻿@model OrganizerProfileViewModel
+
+
+ <main class="mx-auto container mt-5">
+    @if (User.Identity.IsAuthenticated && User.IsInRole("Organizer"))
+    {
+        <div class="card">
+            <div class="card-header text-center">
+        <h3>Мой профиль</h3>
+      </div>
+      <div class="card-body">
+        <form class="d-flex" method="post">
+          <div class="container w-50 me-sm-5">
+            <div class="align-items-center d-flex my-3">
+              <label class="form-label w-35 text-end text-nowrap">Фио:</label>
+              <input type="text" class="form-control ms-sm-3" asp-for="FirstName" value="@Model.FirstName">
+            </div>
+            <div class="align-items-center d-flex my-3">
+              <label class="form-label w-35 text-end text-nowrap">Пол:</label>
+              <input type="text" class="form-control ms-sm-3" asp-for="Gender" value="@Model.Gender">
+            </div>
+            <div class="align-items-center d-flex my-3">
+              <label class="form-label w-35 text-end text-nowrap">Дата рождения:</label>
+              <input type="text" class="form-control ms-sm-3" asp-for="BirthDate" value="@Model.BirthDate">
+            </div>
+            <div class="align-items-center d-flex my-3">
+              <label class="form-label w-35 text-end text-nowrap">Id Number:</label>
+              <input type="text" class="form-control ms-sm-3" readonly asp-for="IdNumber" value="@Model.IdNumber">
+            </div>
+            <div class="align-items-center d-flex my-3">
+              <label class="form-label w-35 text-end text-nowrap">Страна:</label>
+              <input type="text" class="form-control ms-sm-3" asp-for="Country.RusName" value="@Model.Country">
+            </div>
+            <div class="align-items-center d-flex my-3">
+              <label class="form-label w-35 text-end text-nowrap">Телефон:</label>
+              <input type="text" class="form-control ms-sm-3" asp-for="PhoneNumber" value="@Model.PhoneNumber">
+            </div>
+            <div class="align-items-center d-flex my-3">
+              <label class="form-label w-35 text-end text-nowrap">Email:</label>
+              <input type="text" class="form-control ms-sm-3" asp-for="Email" value="@Model.Email">
+            </div>
+          </div>
+          <div class="container w-50 ms-sm-5">
+            <div class="">
+              <img src="./img.jpg" class="img-thumbnail" style="height: auto; width: 40%; margin-left: 45%;">
+            </div>
+            <div class="d-flex justify-content-end">
+              <div class="d-grid">
+                <label class="form-label text-end text-nowrap my-2">Смена пароля:</label>
+                <label class="form-label text-end text-nowrap my-2">Пароль:</label>
+                <label class="form-label text-end text-nowrap my-2">Повтор пароля:</label>
+                <label class="form-label text-end text-nowrap my-2">Видимый пароль:</label>
+              </div>
+              <div class="d-grid ms-sm-3">
+                <input type="checkbox" class="form-check my-2" style="width: 20px; height: 20px;">
+                <input type="password" class="form-control my-2">
+                <input type="password" class="form-control my-2">
+                <input type="checkbox" class="form-check my-2" style="width: 20px; height: 20px;">
+              </div>
+            </div>
+
+          </div>
+        </form>
+      </div>
+    </div>
+
+    }
+  </main>

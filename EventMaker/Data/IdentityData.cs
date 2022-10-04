@@ -9,7 +9,7 @@ namespace EventMaker.Data
         private const string ModeratorRoleName = "Moderator";
         private const string MemberRoleName = "Member";
 
-        private const int NumberId = 101;
+        private const int IdNumber = 101;
         private const string UserPassword = "12345Zz*111";
         public static void AddRoles(RoleManager<IdentityRole> roleManager)
         {
@@ -31,13 +31,13 @@ namespace EventMaker.Data
         }
         public static void AddOrganizer(UserManager<User> userManager)
         {
-            if (userManager.FindByNameAsync(NumberId.ToString()).Result == null)
+            if (userManager.FindByNameAsync(IdNumber.ToString()).Result == null)
             {
                 User user = new User();
                 user.FirstName = "Иван";
                 user.LastName = "Иванов";
                 user.LastLogin = DateTime.Now;
-                user.UserName = NumberId.ToString();
+                user.UserName = IdNumber.ToString();
                 user.Email = "Random@gmail.com";
                 user.Gender = Enums.Gender.Male;
 

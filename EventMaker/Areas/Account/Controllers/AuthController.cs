@@ -30,8 +30,8 @@ namespace EventMaker.Areas.Account.Controllers
         public async Task<IActionResult> Login(LoginViewModel loginmodel)
         {
            
-            var user = await _userManager.FindByNameAsync(loginmodel.NumberId.ToString());
-            var result = await _signInManager.PasswordSignInAsync(loginmodel.NumberId.ToString(),
+            var user = await _userManager.FindByNameAsync(loginmodel.IdNumber.ToString());
+            var result = await _signInManager.PasswordSignInAsync(loginmodel.IdNumber.ToString(),
                loginmodel.Password, loginmodel.RememberMe, false);
            
             if (result.Succeeded)
