@@ -16,6 +16,25 @@ html {
 body {
   margin-bottom: 60px;
 }
+/* :root{
+    --bs-primary-rgb: 250, 100, 250;
+} */
 .w-fitcontent {
     width: fit-content;
+}
+
+.w-maxcontent {
+    width: max-content;
+}
+
+.h-fitcontent {
+    height: fit-content;
+}
+
+.w-15 {
+    width: 15%;
+}
+
+.w-35 {
+    width: 35%;
 }

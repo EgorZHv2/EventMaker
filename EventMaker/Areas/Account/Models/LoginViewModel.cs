@@ -1,10 +1,15 @@
-﻿namespace EventMaker.Areas.Account.Models
+﻿using Microsoft.Build.Framework;
+
+namespace EventMaker.Areas.Account.Models
 {
     public class LoginViewModel
     {
+        [Required]
         public int NumberId { get; set; }
+        [Required]
         public string Password { get; set; }
         public string? ReturnUrl { get; set; }
-        public bool RememberMe { get; set; }
+        [Required]
+        public bool RememberMe { get; set; } 
     }
 }

@@ -1,21 +1,23 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using EventMaker.Data;
 using EventMaker.Data.Entities;
 using EventMaker.Infrastructure;
 using EventMaker.Models.ViewModels;
 using EventMaker.Models.ViewModels.CreateEventView;
 using EventMaker.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace EventMaker.Services
 {
-    public class EventService
+    public class EventService:IEventService
     {
         private readonly ApplicationDbContext _context;
         private readonly ILogger<EventService> _logger;
         private readonly IMapper _mapper;
-        private readonly DirectionService _directionService;
-        private readonly CityService _cityService;
-        public EventService(ApplicationDbContext context, ILogger<EventService> logger, IMapper mapper, DirectionService directionService, CityService cityService)
+        private readonly IDirectionService _directionService;
+        private readonly ICityService _cityService;
+        public EventService(ApplicationDbContext context, ILogger<EventService> logger, IMapper mapper, IDirectionService directionService, ICityService cityService)
         {
             _context = context;
             _logger = logger;
@@ -23,7 +25,7 @@ namespace EventMaker.Services
             _directionService = directionService;
             _cityService = cityService;
         }
-        async Task<Result<int>> CreateEventAsync(CreateEventViewModel viewModel)
+        public  async Task<Result<int>> CreateEventAsync(CreateEventViewModel viewModel)
         {
             var maxDate = viewModel.StartDate.AddDays(1);
 
@@ -84,6 +86,51 @@ namespace EventMaker.Services
             }
             await _context.Events.AddAsync(eventt);
             return Result<int>.Success(eventt.Id);
+        }
+
+        public async Task<Result<EventViewModel>> GetEventByIdAsync(int id)
+        {
+            var eventModel = await _context.Events.FindAsync(id);
+
+            if (eventModel is null)
+            {
+                _logger.LogError($"Событие с id - {id} не найдено");
+                return Result<EventViewModel>.Failure("Событие не найдено", 404);
+            }
+
+            EventViewModel eventResult = null;
+
+            try
+            {
+                eventResult = _mapper.Map<EventViewModel>(eventModel);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Маппинг завершился с ошибкой: {ex}");
+                return Result<EventViewModel>.Failure("Произошла внутренняя ошибка сервера", 500);
+            }
+
+            return Result<EventViewModel>.Success(eventResult);
+        }
+
+        public async Task<Result<EventListViewModel>> GetAllEventsAsync()
+        {
+            var events = await _context.Events.ToListAsync();
+
+            EventListViewModel eventList = new EventListViewModel();
+
+            try
+            {
+                eventList.Events.AddRange(_context.Events.ProjectTo<EventViewModel>(_mapper.ConfigurationProvider));
+                
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Маппинг завершился с ошибкой: {ex}");
+                return Result<EventListViewModel>.Failure("Произошла внутренняя ошибка сервера", 500);
+            }
+
+            return Result<EventListViewModel>.Success(eventList);
         }
     }
 }

@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Account\Controllers\" />
     <Folder Include="Infrastructure\Mappers\" />
   </ItemGroup>
 

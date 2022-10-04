@@ -8,12 +8,12 @@ namespace EventMaker.Data.Entities
     {
 
         public int IdNumber { get; set; }
-        public DateTime LastLogin { get; set; }
+        public DateTime? LastLogin { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Patronimyc { get; set; }
+        public string? Patronimyc { get; set; }
         public DateTime? BirthDate { get; set; }
-        public string UserProfilePath { get; set; }
+        public string? UserProfilePath { get; set; }
         public Gender Gender { get; set; }
        
         public Direction? Direction { get; set; }

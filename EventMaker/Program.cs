@@ -1,5 +1,9 @@
 using EventMaker.Data;
+using EventMaker.Data.Entities;
 using EventMaker.Models;
+using EventMaker.Services;
+using EventMaker.Services.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,10 +11,20 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddScoped<IActivityService, ActivityService>();
+builder.Services.AddScoped<ICityService, CityService>();
+builder.Services.AddScoped<ICountryService,CountryService>();
+builder.Services.AddScoped<IDirectionService, DirectionService>();
+builder.Services.AddScoped<IEventService, EventService>();
 
-builder.Services.AddDbContext<ApplicationDbContext>(options => options
-.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")
-,optionsbuilder => optionsbuilder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+builder.Services.AddDbContext<ApplicationDbContext>(options => {
+
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+});
+
+builder.Services.AddIdentity<User, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddAutoMapper(typeof(AppMappingProfile));
 
@@ -24,7 +38,12 @@ using (var servicescope = app.Services.CreateScope())
     try
     {
         var context = serviceprovider.GetRequiredService<ApplicationDbContext>();
+        var userManager = serviceprovider.GetRequiredService<UserManager<User>>();
+        var roleManager = serviceprovider.GetRequiredService<RoleManager<IdentityRole>>();
+        
         DbInitializer.Initialize(context);
+        IdentityData.AddRoles(roleManager);
+        IdentityData.AddOrganizer(userManager);
     }
     catch (Exception e)
     {
@@ -51,8 +70,17 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+      name: "default",
+      pattern: "{controller=Home}/{action=Index}/{id?}");
 
+    endpoints.MapAreaControllerRoute(
+        name: "account_area",
+        areaName: "account",
+        pattern: "{area=account}/{controller=auth}/{action=login}/{id?}");
+    
+
+});
 app.Run();

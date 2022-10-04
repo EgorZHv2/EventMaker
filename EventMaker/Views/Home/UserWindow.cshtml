@@ -1,0 +1,53 @@
+﻿@Model UserWindowViewModel
+
+@{
+    ViewData["Title"] = "User Window";
+}
+
+<div class="mx-auto container mt-5">
+
+    @if (User.Identity.IsAuthenticated && User.IsInRole("Organizer"))
+    {
+    <div class="card">
+      <div class="card-header text-center">
+        <h3>Окно организатора</h3>
+      </div>
+      <div class="card-body">
+        <div class="d-flex">
+          <div class="container mx-3 w-15">
+            <img src="./img.jpg" class="img-thumbnail h-50">
+            <button class="btn btn-primary btn-lg" style="margin-top: 6.5rem;" >Мой профиль</button>
+
+          </div>
+          <div class="container mx-auto w-50">
+             @{double now = DateTime.Now.Hour;
+
+                        if (now >= 6.0 && now < 12.0)
+                        {
+                                            <h5 class="text-center">Доброе утро, @Model?.Name</h5>
+                        }
+                        else if (now > 12.0 && now < 18.0)
+                        {
+                                            <h5 class="text-center">Доброе день, @Model?.Name</h5>
+                        }
+                        else if (now >= 18.0 && now < 24.0)
+                        {
+                                            <h5 class="text-center">Доброе вечер, @Model?.Name</h5>
+                        }
+                        else
+                        {
+                                            <h5 class="text-center">Доброй ночи, @Model?.Name</h5>
+                        }
+              }
+           <div class=" d-grid">
+                  <button class="btn btn-primary btn-lg  py-3 my-3">Мероприятия</button>
+                  <button class="btn btn-primary btn-lg  py-3 my-3">Участники</button>
+                  <button class="btn btn-primary btn-lg  py-3 my-3">Жюри</button>
+                </div>
+          </div>
+          <div style="width: 18%;"></div>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
