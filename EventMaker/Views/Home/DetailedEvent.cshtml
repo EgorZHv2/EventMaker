@@ -1,0 +1,30 @@
+﻿@model DetailedEventViewModel
+@{
+    ViewData["Title"] = "Detailed Event";
+}
+<main class="mx-auto container mt-5">
+    <div class="card">
+      <div class="card-header text-center">
+        <h3>@Model.Name</h3>
+      </div>
+      <div class="card-body">
+        <div class="d-flex">
+          <div class="card  mx-3">
+            <div class="card-body m-3">
+              <img src="./img.jpg" class="img-thumbnail" style="width: 50px; height:50px; border: 1px black solid;" alt="Типа картинка">
+              <input type="text" class="form-control my-4" asp-for="@Model.City.Name"  readonly value="@Model.StartDate">
+              <input type="text" class="form-control my-4" asp-for="@Model.City.Name" readonly  value="@Model.City.Name">
+              <input type="text" class="form-control mt-4" asp-for="@Model.Organizer.FirstName"  readonly  value="@Model.Organizer.FirstName">
+            </div>
+          </div>
+          <div class="card mx-3 w-75">
+            <div class="card-body m-1">
+              <textarea type="text" class="form-control h-100 align-text-top" readonly asp-for="@Model.Description" value="@Model.Description"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </main>

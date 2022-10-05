@@ -27,6 +27,7 @@ namespace EventMaker.Data.Entities
         public List<Activity> WinnerActivities { get; set; }
         public List<Activity> ModeratorActivities { get; set; }
         public List<Activity> JuryActivities { get; set; }
+        public List<Event> Events { get; set; }
 
         public List<UserRequest> Requests { get; set; }
     }

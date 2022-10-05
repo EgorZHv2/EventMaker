@@ -88,34 +88,39 @@ namespace EventMaker.Services
             return Result<int>.Success(eventt.Id);
         }
 
-        public async Task<Result<EventViewModel>> GetEventByIdAsync(int id)
+        public async Task<Result<DetailedEventViewModel>> GetDetailedEventByIdAsync(int id)
         {
             var eventModel = await _context.Events.FindAsync(id);
 
             if (eventModel is null)
             {
                 _logger.LogError($"Событие с id - {id} не найдено");
-                return Result<EventViewModel>.Failure("Событие не найдено", 404);
+                return Result<DetailedEventViewModel>.Failure("Событие не найдено", 404);
             }
 
-            EventViewModel eventResult = null;
+            DetailedEventViewModel eventResult = null;
 
             try
             {
-                eventResult = _mapper.Map<EventViewModel>(eventModel);
+                eventResult = _mapper.Map<DetailedEventViewModel>(eventModel);
+                
+                                
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Маппинг завершился с ошибкой: {ex}");
-                return Result<EventViewModel>.Failure("Произошла внутренняя ошибка сервера", 500);
+                return Result<DetailedEventViewModel>.Failure("Произошла внутренняя ошибка сервера", 500);
             }
-
-            return Result<EventViewModel>.Success(eventResult);
+         
+            eventResult.City = _context.Cities.Find(eventModel.CityId);
+            eventResult.Direction = _context.Directions.Find(eventModel.DirectionId);
+            eventResult.Organizer = _context.Users.Find(eventModel.OrganizerId);
+            return Result<DetailedEventViewModel>.Success(eventResult);
         }
 
-        public async Task<Result<DetailedEventListViewModel>> GetAllEventsAsync()
+        public async Task<Result<DetailedEventListViewModel>> GetAllDetailedEventsAsync()
         {
-            var events = await _context.Events.ToListAsync();
+             List<Event> events = await _context.Events.ToListAsync();
 
             DetailedEventListViewModel eventList = new DetailedEventListViewModel();
 

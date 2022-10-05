@@ -69,6 +69,7 @@ namespace EventMaker.Data
             builder.Entity<Event>().HasKey(e => e.Id);
             builder.Entity<Event>().HasOne(e => e.Direction).WithMany(t => t.Events).HasForeignKey(e => e.DirectionId);
             builder.Entity<Event>().HasOne(e => e.City).WithMany(t => t.Events).HasForeignKey(e => e.CityId);
+            builder.Entity<Event>().HasOne(e => e.Organizer).WithMany(t => t.Events).HasForeignKey(e => e.OrganizerId).OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<User>().HasKey(e => e.Id);
             builder.Entity<User>().HasOne(e => e.Direction).WithMany(t => t.Users).HasForeignKey(e => e.DirectionId);

@@ -11,7 +11,8 @@ namespace EventMaker.Data.Entities
         public string LogoPath { get; set;}
         public Direction Direction { get; set; }
         public int DirectionId { get; set; }
-       
+        public User Organizer { get; set; }
+        public string OrganizerId { get; set; }
         public City City { get; set; }
         public int CityId { get; set; }
         public List<User> UsersJury { get; set; }

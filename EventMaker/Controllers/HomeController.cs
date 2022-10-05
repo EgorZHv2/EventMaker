@@ -7,7 +7,7 @@ using EventMaker.Models.ViewModels.OrganizerProfileView;
 using EventMaker.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-
+using System.Web.Http;
 
 namespace EventMaker.Controllers
 {
@@ -18,6 +18,7 @@ namespace EventMaker.Controllers
         private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
         private readonly IEventService _eventService;
+        
 
         public HomeController(ILogger<HomeController> logger
             ,ApplicationDbContext context
@@ -31,7 +32,7 @@ namespace EventMaker.Controllers
             _mapper = mapper;
             _eventService = eventService;
         }
-        [HttpGet]
+        [System.Web.Http.HttpGet]
         public IActionResult OrganizerProfile()
         {
             OrganizerProfileViewModel organizerProfileViewModel = new OrganizerProfileViewModel();
@@ -39,7 +40,7 @@ namespace EventMaker.Controllers
             return View(organizerProfileViewModel);
         }
 
-        [HttpGet]
+        [System.Web.Http.HttpGet]
         public  IActionResult UserWindow()
         {
             UserWindowViewModel userWindowViewModel = new UserWindowViewModel();
@@ -49,13 +50,21 @@ namespace EventMaker.Controllers
             userWindowViewModel.UserProfilePath = "/logo1";
             return View(userWindowViewModel);
         }
-        public IActionResult DetailedEvent(int id)
+       
+        public IActionResult DetailedEvent([FromQuery]int Id)
         {
+           
+            
+
+                DetailedEventViewModel model = _eventService.GetDetailedEventByIdAsync(Id).Result.Value;
+                return View(model); 
+           
 
         }
+  
         public IActionResult Index()
         {
-            DetailedEventListViewModel model = _eventService.GetAllEventsAsync().Result.Value;
+            DetailedEventListViewModel model = _eventService.GetAllDetailedEventsAsync().Result.Value;
             
             return View(model);
         }
