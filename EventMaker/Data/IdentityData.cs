@@ -10,6 +10,9 @@ namespace EventMaker.Data
         private const string MemberRoleName = "Member";
 
         private const int IdNumber = 101;
+        private const int IdNumbe = 102;
+        private const int IdNumb = 103;
+        private const int IdNum = 104;
         private const string UserPassword = "12345Zz*111";
         public static void AddRoles(RoleManager<IdentityRole> roleManager)
         {
@@ -46,6 +49,60 @@ namespace EventMaker.Data
                 if (result.Succeeded)
                 {
                     userManager.AddToRoleAsync(user, OrganizerRoleName).Wait();
+                }
+            }
+        }
+        public static void AddModerators(UserManager<User> userManager)
+        {
+            if (userManager.FindByNameAsync(IdNumbe.ToString()).Result == null)
+            {
+                User user = new User();
+                user.FirstName = "Моня1";
+                user.LastName = "Иванов";
+                user.LastLogin = DateTime.Now;
+                user.UserName = IdNumbe.ToString();
+                user.Email = "Randoom@gmail.com";
+                user.Gender = Enums.Gender.Male;
+
+                IdentityResult result = userManager.CreateAsync(user, UserPassword).Result;
+
+                if (result.Succeeded)
+                {
+                    userManager.AddToRoleAsync(user, ModeratorRoleName).Wait();
+                }
+            }
+            if (userManager.FindByNameAsync(IdNumb.ToString()).Result == null)
+            {
+                User user = new User();
+                user.FirstName = "Моня2";
+                user.LastName = "Егоров";
+                user.LastLogin = DateTime.Now;
+                user.UserName = IdNumb.ToString();
+                user.Email = "Randooom@gmail.com";
+                user.Gender = Enums.Gender.Male;
+
+                IdentityResult result = userManager.CreateAsync(user, UserPassword).Result;
+
+                if (result.Succeeded)
+                {
+                    userManager.AddToRoleAsync(user, ModeratorRoleName).Wait();
+                }
+            }
+            if (userManager.FindByNameAsync(IdNum.ToString()).Result == null)
+            {
+                User user = new User();
+                user.FirstName = "Моня3";
+                user.LastName = "Олегов";
+                user.LastLogin = DateTime.Now;
+                user.UserName = IdNum.ToString();
+                user.Email = "Randoooom@gmail.com";
+                user.Gender = Enums.Gender.Male;
+
+                IdentityResult result = userManager.CreateAsync(user, UserPassword).Result;
+
+                if (result.Succeeded)
+                {
+                    userManager.AddToRoleAsync(user, ModeratorRoleName).Wait();
                 }
             }
         }

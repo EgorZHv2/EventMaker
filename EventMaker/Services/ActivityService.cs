@@ -5,7 +5,7 @@ using EventMaker.Data.Entities;
 using EventMaker.Infrastructure;
 using EventMaker.Models.ViewModels;
 using EventMaker.Services.Interfaces;
-
+using Microsoft.AspNetCore.Identity;
 
 namespace EventMaker.Services
 {
@@ -14,19 +14,23 @@ namespace EventMaker.Services
         private readonly ApplicationDbContext _context;
         private readonly ILogger<ActivityService> _logger;
         private readonly IMapper _mapper;
+        private readonly UserManager<User> _userManager;
 
-        public ActivityService(ApplicationDbContext context, IMapper mapper, ILogger<ActivityService> logger)
+        public ActivityService(ApplicationDbContext context, IMapper mapper, ILogger<ActivityService> logger, UserManager<User> userManager)
         {
             _context = context;
             _mapper = mapper;
             _logger = logger;
+            _userManager = userManager;
         }
-        public  async Task<Result<int>> CreateActivityAsync(CreateActivityViewModel viewModel)
+        public  async Task<Result<int>> CreateActivityAsync(CreateActivityViewModel viewModel, int EventId)
         {
-            Activity? activity = null;
+            Activity activity = new Activity();
             try
             {
                 activity = _mapper.Map<Activity>(viewModel);
+                activity.ModeratorId = viewModel.JuryId;
+                activity.EventId = EventId;
             }
             catch(Exception e)
             {
@@ -60,7 +64,10 @@ namespace EventMaker.Services
                 
                 foreach (Activity activity in activitiesByEventId)
                 {
-                    viewmodel.ActivitiesList.Add(_mapper.Map<ActivityViewModel>(activity));
+                    viewmodel.ActivitiesList.Add(new ActivityViewModel { Name = activity.Name,
+                    StartDate = activity.StartDate,
+                    Jury = _userManager.FindByIdAsync(activity.ModeratorId).Result });
+                    
                 }
             }
             catch(Exception e)

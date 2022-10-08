@@ -1,0 +1,67 @@
+﻿@model CreateActivityMainViewModel
+
+@{
+    ViewData["Title"] = "Activities";
+}
+
+<div class="container">
+
+            <h6 class="text-center">Активности</h6>
+             <div class="mx-auto w-75">
+                  <button class="btn btn-primary btn-lg w-100" data-bs-toggle="modal" data-bs-target="#Modal">Добавить</button>
+             </div>
+          <form method="post">
+            <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ModalLabel">Добавление активности</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                    </div>
+                    <div class="modal-body">
+                       <div class="d-flex justify-content-center">
+                        <div class="d-grid">
+                           <label class="form-label text-end text-nowrap my-3">Название:</label>
+                           <label class="form-label text-end text-nowrap my-3">Время начала:</label>
+                           <label class="form-label text-end text-nowrap my-3">Жюри:</label>
+                        </div>
+                         <div class="d-grid ms-sm-3 w-50">
+                           <input type="text" class="form-control my-3" asp-for="viewModel.Name">
+                           <input type="datetime-local" class="form-control my-3" asp-for="viewModel.StartDate">
+                           <select class="form-select my-3" asp-for="viewModel.JuryId">
+                           @foreach(JuriViewModel juri in Model.juri.Juri){
+                           <option value="@juri.Id">@juri.LastName @juri.FirstName</option>
+                           }
+                           </select>
+                         </div>
+                       </div>
+                    </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+            </form>
+            <table class="table table-borderless table-hover" id="ActivitiesTable">
+              <thead>
+                <tr>
+                  <th class="text-center w-50">Наименование</th>
+                  <th class="text-center">Время</th>
+                  <th class="text-center">Жюри</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach(ActivityViewModel activityView in Model.activities){
+                    <tr>
+                        <td>@activityView.Name</td>
+                        <td>@activityView.StartDate</td>
+                        <td>@activityView.Jury.LastName @activityView.Jury.FirstName</td>
+                    </tr>
+                }
+               
+              </tbody>
+            </table>
+            
+</div>

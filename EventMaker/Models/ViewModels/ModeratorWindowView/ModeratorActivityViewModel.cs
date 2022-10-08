@@ -1,6 +1,6 @@
 ﻿namespace EventMaker.Models.ViewModels.ModeratorWindowView
 {
-    public class ActivityViewModel
+    public class ModeratorActivityViewModel
     {
         public string Name { get; set; }
         public DateOnly Date { get; set; }

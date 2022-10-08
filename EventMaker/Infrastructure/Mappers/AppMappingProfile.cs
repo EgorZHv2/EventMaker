@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using EventMaker.Data.Entities;
 using EventMaker.Models.ViewModels;
-using EventMaker.Models.ViewModels.CreateEventView;
 using EventMaker.Models.ViewModels.OrganizerProfileView;
 
 namespace EventMaker.Infrastructure.Mappers
@@ -25,6 +24,9 @@ namespace EventMaker.Infrastructure.Mappers
             CreateMap<CreateActivityViewModel, Activity>().ReverseMap();
 
             CreateMap<User, OrganizerProfileViewModel>().ReverseMap();
+            CreateMap<User, JuriViewModel>().ReverseMap();
+
+            CreateMap<City, CityViewModel>().ReverseMap();
 
             
 

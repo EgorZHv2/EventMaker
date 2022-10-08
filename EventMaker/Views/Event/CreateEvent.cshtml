@@ -1,0 +1,66 @@
+﻿@model CreateEventMainViewModel
+@{
+    ViewData["Title"] = "CreateEvent";
+}
+ <main class="mx-auto container mt-5">
+    <div class="card">
+      <div class="card-header text-center">
+        <h3>Добавить мероприятие</h3>
+      </div>
+      <div class="card-body">
+        <form method="post">
+          <div class="d-flex">
+            <div class="container w-75">
+              <div class="d-flex">
+                <div class="d-grid">
+                  <label class="form-label text-end text-nowrap my-3">Начало:</label>
+                  <label class="form-label text-end text-nowrap my-3">Окончание:</label>
+                  <label class="form-label text-end text-nowrap my-3">Мероприятие:</label>
+                  <label class="form-label text-end text-nowrap my-3">Направление:</label>
+                  <label class="form-label text-end text-nowrap my-3">Город:</label>
+
+                </div>
+                <div class="d-grid ms-sm-3 w-75">
+                  <input asp-for="@Model.eventmodel.StartDate" type="date" class="form-control w-25 my-2">
+                  <input asp-for="@Model.eventmodel.EndDate" type="date" class="form-control w-25 my-2">
+                  <input asp-for="@Model.eventmodel.Name" type="text"  class="form-control my-2">
+                  @*<datalist id="Events">
+                    <option value="День дня"></option>
+                    <option value="День дня"></option>
+                    <option value="День дня"></option>
+                    <option value="День дня"></option>
+                    <option value="День дня"></option>
+                  </datalist>*@
+                  <input asp-for="@Model.eventmodel.DirectionName" type="text" list="Directions" class="form-control my-2">
+                  <datalist id="Directions">
+                    @foreach(DirectionViewModel direction in Model.eventmodel.Directions){
+                        <option value=@direction.Name></option>
+                    }
+                  </datalist>
+                  <input asp-for="@Model.eventmodel.CityName" type="text" list="Cities" class="form-control my-2">
+                  <datalist id="Cities">
+                    @foreach(CityViewModel city in Model.eventmodel.Cities){
+                        <option value=@city.Name></option>
+                    }
+                  </datalist>
+                </div>
+              </div>
+            </div>
+            <div class="container w-15 d-grid h-fitcontent">
+              <button class="btn btn-primary my-2">CSV</button>
+              <button class="btn btn-primary my-2">Доска</button>
+            </div>
+          </div>
+                    
+             
+              
+              <div class="w-50 mx-auto">
+                <button type="submit" class="btn btn-primary w-100" >Ок</button>
+              </div>
+            
+        </form>
+      </div>
+    </div>
+  </main>
+
+

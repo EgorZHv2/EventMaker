@@ -1,6 +1,5 @@
 ﻿using EventMaker.Infrastructure;
 using EventMaker.Models.ViewModels;
-using EventMaker.Models.ViewModels.CreateEventView;
 
 namespace EventMaker.Services.Interfaces
 {

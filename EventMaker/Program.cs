@@ -3,6 +3,7 @@ using EventMaker.Data.Entities;
 using EventMaker.Infrastructure.Mappers;
 using EventMaker.Services;
 using EventMaker.Services.Interfaces;
+using M6T.Core.TupleModelBinder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,12 +11,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddMvc(options =>
+{
+    options.ModelBinderProviders.Insert(0, new TupleModelBinderProvider());
+});
 
 builder.Services.AddScoped<IActivityService, ActivityService>();
 builder.Services.AddScoped<ICityService, CityService>();
 builder.Services.AddScoped<ICountryService,CountryService>();
 builder.Services.AddScoped<IDirectionService, DirectionService>();
 builder.Services.AddScoped<IEventService, EventService>();
+builder.Services.AddScoped<IJuryService, JuryService>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => {
 
@@ -44,6 +50,7 @@ using (var servicescope = app.Services.CreateScope())
         DbInitializer.Initialize(context);
         IdentityData.AddRoles(roleManager);
         IdentityData.AddOrganizer(userManager);
+        IdentityData.AddModerators(userManager);
     }
     catch (Exception e)
     {

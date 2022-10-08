@@ -1,0 +1,40 @@
+﻿@model DetailedEventListViewModel
+
+@{
+    ViewData["Title"] = "EventsList";
+}
+<div>
+    <div class="mx-auto w-75">
+        <button class="btn btn-primary btn-lg w-100" onclick="window.location.href='/Event/CreateEvent'">Добавить</button>
+    </div>
+  <div>
+      <h2 class="text-center">Все:</h2>
+    </div>
+    <div class="m-2">
+      <table class="table table-hover table-bordered" id="sortTable">
+        <thead>
+          <tr>
+            <th></th>
+            <th scope="col">Логотип</th>
+            <th scope="col">Название</th>
+            <th scope="col">Направление</th>
+            <th scope="col">Дата</th>
+            <th scope="col">Подробнее</th>
+          </tr>
+        </thead>
+        <tbody>
+            @foreach (DetailedEventViewModel Event in Model.Events)
+            {
+                 <tr>
+                     <th class="opacity-0">@Event.Id</th>
+                     <th>@Event.LogoPath</th>
+                     <th>@Event.Name</th>
+                     <th>@Event.Direction.Name</th>
+                     <th>@Event.StartDate</th>
+                     <th><button class="btn btn-primary" onclick="window.location.href='/Event/ActivitiesList?Id=@Event.Id'" >Подробнее</button></th>
+                 </tr>
+            }
+         </tbody>
+      </table>
+    </div>
+</div>

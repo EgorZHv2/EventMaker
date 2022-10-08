@@ -4,7 +4,6 @@ using EventMaker.Data;
 using EventMaker.Data.Entities;
 using EventMaker.Infrastructure;
 using EventMaker.Models.ViewModels;
-using EventMaker.Models.ViewModels.CreateEventView;
 using EventMaker.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -84,7 +83,9 @@ namespace EventMaker.Services
                 _logger.LogError($"Маппинг завершился с ошибкой: {e}");
                 return Result<int>.Failure("Произошла внутренняя ошибка сервера", 500);
             }
+            eventt.LogoPath = "/logo";
             await _context.Events.AddAsync(eventt);
+            await _context.SaveChangesAsync();
             return Result<int>.Success(eventt.Id);
         }
 
