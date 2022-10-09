@@ -59,5 +59,34 @@ namespace EventMaker.Services
             return Result<JuriListViewModel>.Success(juriListViewModel);
 
         }
+
+        public async Task<Result<JuriListViewModel>> GetAllJuryAsync()
+        {
+            JuriListViewModel memberListView = new JuriListViewModel();
+
+            var members = await _userManager.GetUsersInRoleAsync("Moderator");
+
+            if (members is null)
+            {
+                _logger.LogError($"Жюри не найдено");
+                return Result<JuriListViewModel>.Failure("Жюри не найдено");
+            }
+
+            try
+            {
+                foreach (var item in members)
+                {
+                    memberListView.Juri.Add(_mapper.Map<JuriViewModel>(item));
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Маппинг завершился с ошибкой: {ex}");
+                return Result<JuriListViewModel>.Failure("Произошла внутренняя ошибка сервера", 500);
+            }
+
+            return Result<JuriListViewModel>.Success(memberListView);
+
+        }
     }
 }

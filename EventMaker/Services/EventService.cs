@@ -16,13 +16,20 @@ namespace EventMaker.Services
         private readonly IMapper _mapper;
         private readonly IDirectionService _directionService;
         private readonly ICityService _cityService;
-        public EventService(ApplicationDbContext context, ILogger<EventService> logger, IMapper mapper, IDirectionService directionService, ICityService cityService)
+        private readonly IImageConverter _imageConverter;
+        public EventService(ApplicationDbContext context
+            , ILogger<EventService> logger
+            , IMapper mapper
+            , IDirectionService directionService
+            , ICityService cityService
+            ,IImageConverter imageConverter)
         {
             _context = context;
             _logger = logger;
             _mapper = mapper;
             _directionService = directionService;
             _cityService = cityService;
+            _imageConverter = imageConverter;
         }
         public  async Task<Result<int>> CreateEventAsync(CreateEventViewModel viewModel)
         {
@@ -83,7 +90,7 @@ namespace EventMaker.Services
                 _logger.LogError($"Маппинг завершился с ошибкой: {e}");
                 return Result<int>.Failure("Произошла внутренняя ошибка сервера", 500);
             }
-            eventt.LogoPath = "/logo";
+            eventt.Logo = _imageConverter.ConvertFormFileToByte(viewModel.LogoInput);
             await _context.Events.AddAsync(eventt);
             await _context.SaveChangesAsync();
             return Result<int>.Success(eventt.Id);

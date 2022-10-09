@@ -13,15 +13,15 @@
           <div class="container w-50 me-sm-5">
             <div class="align-items-center d-flex my-3">
               <label class="form-label w-35 text-end text-nowrap">Фио:</label>
-              <input type="text" class="form-control ms-sm-3" asp-for="FirstName" value="@Model.FirstName">
+                  <input type="text" readonly class="form-control ms-sm-3"  value="@Model.LastName @Model.FirstName @Model.Patronimyc">
             </div>
             <div class="align-items-center d-flex my-3">
               <label class="form-label w-35 text-end text-nowrap">Пол:</label>
-              <input type="text" class="form-control ms-sm-3" asp-for="Gender" value="@Model.Gender">
+              <input type="text" readonly class="form-control ms-sm-3" asp-for="Gender" value="@Model.Gender">
             </div>
             <div class="align-items-center d-flex my-3">
               <label class="form-label w-35 text-end text-nowrap">Дата рождения:</label>
-              <input type="text" class="form-control ms-sm-3" asp-for="BirthDate" value="@Model.BirthDate">
+              <input type="text" readonly class="form-control ms-sm-3" asp-for="BirthDate" value="@Model.BirthDate">
             </div>
             <div class="align-items-center d-flex my-3">
               <label class="form-label w-35 text-end text-nowrap">Id Number:</label>
@@ -29,40 +29,55 @@
             </div>
             <div class="align-items-center d-flex my-3">
               <label class="form-label w-35 text-end text-nowrap">Страна:</label>
-              <input type="text" class="form-control ms-sm-3" asp-for="Country.RusName" value="@Model.Country">
+              <input type="text" readonly class="form-control ms-sm-3" asp-for="Country.RusName" value="@Model.Country">
             </div>
             <div class="align-items-center d-flex my-3">
               <label class="form-label w-35 text-end text-nowrap">Телефон:</label>
-              <input type="text" class="form-control ms-sm-3" asp-for="PhoneNumber" value="@Model.PhoneNumber">
+              <input type="text" readonly class="form-control ms-sm-3" asp-for="PhoneNumber" value="@Model.PhoneNumber">
             </div>
             <div class="align-items-center d-flex my-3">
               <label class="form-label w-35 text-end text-nowrap">Email:</label>
-              <input type="text" class="form-control ms-sm-3" asp-for="Email" value="@Model.Email">
+              <input type="text" readonly class="form-control ms-sm-3" asp-for="Email" value="@Model.Email">
             </div>
           </div>
           <div class="container w-50 ms-sm-5">
             <div class="">
-              <img src="./img.jpg" class="img-thumbnail" style="height: auto; width: 40%; margin-left: 45%;">
+                            @if (Model.UserProfile is not null) 
+                            { 
+                               <img class="img-thumbnail" style="height: auto; width: 40%; margin-left: 45%;" src="data:image/png:base64,@(Convert.ToBase64String(Model.UserProfile))"> </img>
+                            }
+                            else{
+                                      <img src="/Resources/img/foto1.jpg" style="height: auto; width: 40%; margin-left: 45%;" class="img-thumbnail" >
+                            }
+                            
             </div>
             <div class="d-flex justify-content-end">
               <div class="d-grid">
                 <label class="form-label text-end text-nowrap my-2">Смена пароля:</label>
-                <label class="form-label text-end text-nowrap my-2">Пароль:</label>
-                <label class="form-label text-end text-nowrap my-2">Повтор пароля:</label>
-                <label class="form-label text-end text-nowrap my-2">Видимый пароль:</label>
-              </div>
+                <label class="form-label text-end text-nowrap my-2">Старый пароль:</label>
+                <label class="form-label text-end text-nowrap my-2">Новый пароль:</label>
+              </div> 
               <div class="d-grid ms-sm-3">
-                <input type="checkbox" class="form-check my-2" style="width: 20px; height: 20px;">
-                <input type="password" class="form-control my-2">
-                <input type="password" class="form-control my-2">
-                <input type="checkbox" class="form-check my-2" style="width: 20px; height: 20px;">
+                <input type="checkbox" class="form-check my-2" asp-for=ChangePassword style="width: 20px; height: 20px;">
+                <input type="password" class="form-control my-2" asp-for=OldPassword>
+                <input type="password" class="form-control my-2" asp-for=NewPassword>
               </div>
             </div>
-
+                <div class="w-100 d-flex mt-3">
+                      <div class="w-50 justify-content-start">
+                        
+                      </div>
+                      <div class="w-50">
+                        <button class="btn btn-primary ms-2" onclick="window.location.href='/Home/UserWindow'">Отмена</button>
+                        <button type="submit" class="btn btn-primary end-0 me-5 position-absolute">Ок</button>
+                      </div>
+                    </div>
           </div>
+              
         </form>
       </div>
     </div>
 
     }
+    
   </main>

@@ -6,5 +6,6 @@ namespace EventMaker.Services.Interfaces
     public interface IJuryService
     {
         Task<Result<JuriListViewModel>> GetAllJuryShortListAsync();
+        Task<Result<JuriListViewModel>> GetAllJuryAsync();
     }
 }

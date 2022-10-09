@@ -27,7 +27,14 @@
             {
                  <tr>
                      <th class="opacity-0">@Event.Id</th>
-                     <th>@Event.LogoPath</th>
+                         <th>@if (Event.Logo is not null)
+                            {
+                                        <img width="60px" class="image-thumbnail" src="data:image/jpeg;base64,@(Convert.ToBase64String(Event.Logo))"> </img>
+                            }
+                            else
+                            {
+                                 <img width="30px" src="~/Resources/Img/empty.png">
+                            }</th>
                      <th>@Event.Name</th>
                      <th>@Event.Direction.Name</th>
                      <th>@Event.StartDate</th>

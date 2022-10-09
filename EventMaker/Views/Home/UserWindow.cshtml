@@ -15,7 +15,14 @@
         <div class="d-flex">
                <div class="container mx-3 w-15 pb-4">
                 <div class="h-50">
-                  <img src="./imgaa.jpg" class="img-thumbnail">
+                            @if (Model.UserProfile is not null)
+                            { 
+                                       <img class="img-thumbnail" src="data:image/png:base64,@(Convert.ToBase64String(Model.UserProfile))"> </img>
+                            }
+                            else
+                            {
+                                      <img src="/Resources/img/foto1.jpg" class="img-thumbnail" >
+                            }
                 </div>
                 <div class="position-relative h-50">
                   <button class="btn btn-primary position-absolute bottom-0" onclick="window.location.href='/Home/OrganizerProfile'">Мой профиль</button>
@@ -43,13 +50,17 @@
               }
            <div class=" d-grid">
                   <button class="btn btn-primary btn-lg  py-3 my-3" onclick="window.location.href='/Event/EventsList'">Мероприятия</button>
-                  <button class="btn btn-primary btn-lg  py-3 my-3">Участники</button>
-                  <button class="btn btn-primary btn-lg  py-3 my-3">Жюри</button>
+                          <button class="btn btn-primary btn-lg  py-3 my-3" onclick="window.location.href='/Home/MembersList'">Участники</button>
+                      <button class="btn btn-primary btn-lg  py-3 my-3" onclick="window.location.href='/Home/JuryList'">Жюри</button>
                 </div>
           </div>
           <div style="width: 18%;"></div>
         </div>
       </div>
     </div>
+    }
+    else if (User.Identity.IsAuthenticated && User.IsInRole("Member"))
+    {
+                <span class="fs-3">Добро пожаловать! Ваш номер участника - @User.Identity.Name</span>
     }
   </div>

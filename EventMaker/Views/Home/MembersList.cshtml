@@ -1,0 +1,38 @@
+﻿@model MemberListViewModel
+ <div class="mx-auto w-75">
+        <button class="btn btn-primary btn-lg w-100" onclick="window.location.href='/account/auth/MemberRegistration'">Добавить</button>
+    </div>
+<table class="table mt-3" id="MembersTable">
+    <thead>
+        <tr>
+            <th scope="col">Id Number</th>
+            <th scope="col">ФИО</th>
+            <th scope="col">Аватар</th>
+            <th scope="col">Email</th>
+            <th scope="col">Gender</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.memberViews)
+        {
+                <tr>
+                    <th scope="row">@item.IdNumber</th>
+                    <td>@item.LastName @item.FirstName @item.Patronimyc</td>
+                    <td>
+                    @if (item.UserProfile is not null)
+                    {
+                                <div class="overflow-hidden rounded-circle" style="width: 60px; height: 60px">
+                                    <img class="text-center" height="60px" src="data:image/jpeg;base64,@(Convert.ToBase64String(item.UserProfile))"></img>
+                                </div>
+                    }
+                    else
+                    {
+                                <img src="/Resources/img/empty.png" width="60px"></img>
+                    }
+                    </td>
+                    <td>@item.Email</td>
+                    <td>@item.Gender</td>
+                </tr>
+        }
+    </tbody>
+</table>

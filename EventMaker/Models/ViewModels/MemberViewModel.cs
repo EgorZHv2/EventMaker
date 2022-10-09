@@ -3,7 +3,7 @@ using EventMaker.Data.Enums;
 
 namespace EventMaker.Models.ViewModels
 {
-    public class JuriViewModel
+    public class MemberViewModel
     {
         public string Id { get; set; }
         public int IdNumber { get; set; }

@@ -25,8 +25,10 @@ namespace EventMaker.Infrastructure.Mappers
 
             CreateMap<User, OrganizerProfileViewModel>().ReverseMap();
             CreateMap<User, JuriViewModel>().ReverseMap();
+            CreateMap<User, MemberViewModel>().ReverseMap();
 
             CreateMap<City, CityViewModel>().ReverseMap();
+            CreateMap<CreateCityViewModel, City>().ReverseMap();
 
             
 

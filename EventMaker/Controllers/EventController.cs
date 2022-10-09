@@ -48,23 +48,24 @@ namespace EventMaker.Controllers
         [HttpGet]
         public IActionResult CreateEvent()
         {
-            CreateEventMainViewModel maineventmodel = new CreateEventMainViewModel();
-            maineventmodel.eventmodel.StartDate = DateTime.Now;
-            maineventmodel.eventmodel.EndDate = DateTime.Now;
-            maineventmodel.eventmodel.Directions = _directionService.GetAllDirectionsAsync().Result.Value.DirectionList;
-            maineventmodel.eventmodel.Cities = _cityService.GetAllCitiesAsync().Result.Value.CityList;   
+            CreateEventViewModel model = new CreateEventViewModel();
+            model.StartDate = DateTime.Now;
+            model.EndDate = DateTime.Now;
+            model.Directions = _directionService.GetAllDirectionsAsync().Result.Value.DirectionList;
+            model.Cities = _cityService.GetAllCitiesAsync().Result.Value.CityList;   
 
             
   
              
-            return View(maineventmodel);
+            return View(model);
         }
         [HttpPost]
-        public IActionResult CreateEvent(CreateEventMainViewModel model)
+        public  async Task<IActionResult> CreateEvent(CreateEventViewModel model)
         {
 
-            model.eventmodel.OrganizerId = _userManager.GetUserId(User);
-            var result = _eventService.CreateEventAsync(model.eventmodel);
+            model.OrganizerId = _userManager.GetUserId(User);
+
+            var result = await _eventService.CreateEventAsync(model);
             
             
              return RedirectToAction("EventsList", "Event");

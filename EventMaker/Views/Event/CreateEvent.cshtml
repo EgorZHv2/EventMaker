@@ -1,4 +1,4 @@
-﻿@model CreateEventMainViewModel
+﻿@model CreateEventViewModel
 @{
     ViewData["Title"] = "CreateEvent";
 }
@@ -8,11 +8,12 @@
         <h3>Добавить мероприятие</h3>
       </div>
       <div class="card-body">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
           <div class="d-flex">
             <div class="container w-75">
               <div class="d-flex">
                 <div class="d-grid">
+                    <label class="form-label text-end text-nowrap my-3">Логотип:</label>
                   <label class="form-label text-end text-nowrap my-3">Начало:</label>
                   <label class="form-label text-end text-nowrap my-3">Окончание:</label>
                   <label class="form-label text-end text-nowrap my-3">Мероприятие:</label>
@@ -21,9 +22,10 @@
 
                 </div>
                 <div class="d-grid ms-sm-3 w-75">
-                  <input asp-for="@Model.eventmodel.StartDate" type="date" class="form-control w-25 my-2">
-                  <input asp-for="@Model.eventmodel.EndDate" type="date" class="form-control w-25 my-2">
-                  <input asp-for="@Model.eventmodel.Name" type="text"  class="form-control my-2">
+                  
+                  <input asp-for="@Model.StartDate" type="date" class="form-control w-25 my-2">
+                  <input asp-for="@Model.EndDate" type="date" class="form-control w-25 my-2">
+                  <input asp-for="@Model.Name" type="text"  class="form-control my-2">
                   @*<datalist id="Events">
                     <option value="День дня"></option>
                     <option value="День дня"></option>
@@ -31,18 +33,19 @@
                     <option value="День дня"></option>
                     <option value="День дня"></option>
                   </datalist>*@
-                  <input asp-for="@Model.eventmodel.DirectionName" type="text" list="Directions" class="form-control my-2">
+                  <input asp-for="@Model.DirectionName" type="text" list="Directions" class="form-control my-2">
                   <datalist id="Directions">
-                    @foreach(DirectionViewModel direction in Model.eventmodel.Directions){
+                    @foreach(DirectionViewModel direction in Model.Directions){
                         <option value=@direction.Name></option>
                     }
                   </datalist>
-                  <input asp-for="@Model.eventmodel.CityName" type="text" list="Cities" class="form-control my-2">
+                  <input asp-for="@Model.CityName" type="text" list="Cities" class="form-control my-2">
                   <datalist id="Cities">
-                    @foreach(CityViewModel city in Model.eventmodel.Cities){
+                    @foreach(CityViewModel city in Model.Cities){
                         <option value=@city.Name></option>
                     }
                   </datalist>
+                  <input type="file" class="form-control" name="LogoInput" asp-for="@Model.LogoInput">
                 </div>
               </div>
             </div>

@@ -13,7 +13,7 @@ namespace EventMaker.Data.Entities
         public string LastName { get; set; }
         public string? Patronimyc { get; set; }
         public DateTime? BirthDate { get; set; }
-        public string? UserProfilePath { get; set; }
+        public byte[]? UserProfile { get; set; }
         public Gender Gender { get; set; }
        
         public Direction? Direction { get; set; }

@@ -18,7 +18,7 @@
               <button type="button" onclick="window.location.href = '/account/auth/login';" class="btn btn-primary px-sm-5">Авторизация</button>
             </div>
             <div class="d-inline mx-3 my-1">
-              <button type="button" class="btn btn-primary px-sm-5">Регистрация</button>
+              <button type="button" class="btn btn-primary px-sm-5" onclick="window.location.href='/account/auth/Registration'">Регистрация</button>
             </div>
           </div>
         </div>
@@ -43,7 +43,12 @@
          @foreach(DetailedEventViewModel Event in Model.Events){
              <tr>
                  <th class="opacity-0">@Event.Id</th>
-                 <th>@Event.LogoPath</th>
+                 <th>@if(Event.Logo is not null)
+                            {
+                                <img width="60px" class="image-thumbnail" src="data:image/jpeg;base64,@(Convert.ToBase64String(Event.Logo))"> </img>}
+                     else{
+                         <img width="30px" src="~/Resources/Img/empty.png">
+                     }</th>
                  <th>@Event.Name</th>
                  <th>@Event.Direction.Name</th>
                  <th>@Event.StartDate</th>

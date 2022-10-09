@@ -11,17 +11,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddMvc(options =>
-{
-    options.ModelBinderProviders.Insert(0, new TupleModelBinderProvider());
-});
 
+builder.Services.AddScoped<IImageConverter, ImageConverter>();
 builder.Services.AddScoped<IActivityService, ActivityService>();
 builder.Services.AddScoped<ICityService, CityService>();
 builder.Services.AddScoped<ICountryService,CountryService>();
 builder.Services.AddScoped<IDirectionService, DirectionService>();
 builder.Services.AddScoped<IEventService, EventService>();
 builder.Services.AddScoped<IJuryService, JuryService>();
+builder.Services.AddScoped<IMemberService, MemberService>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => {
 

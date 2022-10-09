@@ -11,7 +11,7 @@ namespace EventMaker.Models.ViewModels.CreateModeratorView
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public bool AttachToEvent { get; set; }
-        public string UserProfilePath { get; set; }
+        public IFormFile UserProfile { get; set; }
         public string Password { get; set; }
         public string PasswordRe { get; set; }
 

@@ -4,6 +4,6 @@
     {
         public int IdNumber { get; set; }
         public string Name { get; set; }
-        public string UserProfilePath { get; set; }
+        public byte[]? UserProfile { get; set; }
     }
 }
